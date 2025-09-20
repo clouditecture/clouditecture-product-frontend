@@ -2,10 +2,10 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/authPages/Login";
-import Forgot from "./pages/authPages/Forgot";
+import Forgot from "./pages/authPages/ForgotPassword";
 import SignUp from "./pages/authPages/Signup";
-import VerificationScreen from "./pages/authPages/VerificationScreen";
-import ConfirmPass from "./pages/authPages/ConfirmPass";
+import VerificationScreen from "./pages/authPages/SignupVerification";
+import ConfirmPass from "./pages/authPages/ResetPassword";
 import AuthService from "./services/authService";
 
 
