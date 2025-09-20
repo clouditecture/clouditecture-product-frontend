@@ -3,7 +3,6 @@ import { Input } from "@/components/authComponents/input";
 import { Checkbox } from "@/components/authComponents/checkbox";
 import GradientBackground from "@/components/authComponents/GradientBackground";
 import { Label } from "@/components/authComponents/label";
-import { Button } from "@/components/authComponents/button";
 import { Card, CardContent } from "@/components/authComponents/card";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
@@ -60,10 +59,10 @@ const Login = ({
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div className="w-full max-w-md">
           {/* Main Login Card */}
-          <Card className="bg-white rounded-tl-3xl rounded-tr-3xl rounded-br-3xl rounded-bl-none overflow-hidden">
+          <Card className="bg-white rounded-tl-3xl rounded-tr-3xl rounded-bl-none overflow-hidden">
             <CardContent className="p-6">
               {/* Cloud Icon */}
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center">
                 <CloudLogo />
               </div>
 
@@ -144,47 +143,41 @@ const Login = ({
 
           {/* Custom Buttons */}
           <div className="flex gap-4">
-            <div className="relative bottom-1 rounded-bl-3xl rounded-br-3xl rounded-tl-none rounded-tr-none bg-white text-white px-29 py-4">
-              {/* Empty spacer div */}
+            <div className="relative bottom-1 rounded-bl-3xl rounded-tl-none rounded-tr-none bg-white text-white px-6 py-5 w-[279px]">
+              <div className="text-gray-600 text-sm">
+                Don't have an account?{" "}
+                <Link to="/signup" className="text-[#37BFF5] hover:underline">
+                  Sign up
+                </Link>
+              </div>
             </div>
 
             <button
               type="submit"
               form="loginForm"  
-              className="cursor-pointer mt-2 rounded-3xl bg-[#37BFF5] text-white w-[171px] h-[45px] hover:bg-[#2BA8E0] transition-colors"
+              className="cursor-pointer mt-2 rounded-br-3xl bg-[#37BFF5] text-white w-[171px] h-[45px] hover:bg-[#2BA8E0] transition-colors"
             >
               Log in
             </button>
           </div>
 
-          {/* Sign Up Section */}
           <div className="mt-6 text-center">
             <div className="flex items-center justify-center mb-4">
               <div className="flex-1 border-t border-white/30" />
               <span className="mx-4 text-white font-medium text-sm">
-                Or Sign up Here
+                Or continue with
               </span>
               <div className="flex-1 border-t border-white/30" />
             </div>
 
-            <div className="space-y-3">
-              <Link
-                to="/signup"
-                onClick={onSignUp}
-                className="block w-full py-3 bg-[#37BFF5] text-white rounded-3xl cursor-pointer text-center hover:bg-[#2BA8E0] transition-colors"
-              >
-                Sign up
-              </Link>
-
-              <Link
-                to="/google-login"
-                onClick={onGoogleLogin}
-                className="block w-full py-2.5 flex items-center justify-center gap-3 border border-white text-white rounded-3xl cursor-pointer text-center hover:bg-white/10 transition-colors"
-              >
-                <FcGoogle className="w-6 h-6" />
-                Log in with Google
-              </Link>
-            </div>
+            <Link
+              to="/google-login"
+              onClick={onGoogleLogin}
+              className="block w-full py-2.5 flex items-center justify-center gap-3 border border-white text-white rounded-3xl cursor-pointer text-center hover:bg-white/10 transition-colors"
+            >
+              <FcGoogle className="w-6 h-6" />
+              Log in with Google
+            </Link>
           </div>
         </div>
       </div>

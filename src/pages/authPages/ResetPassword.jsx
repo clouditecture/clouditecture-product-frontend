@@ -185,19 +185,26 @@ const ConfirmPass = ({ onSubmit }) => {
 
           {/* Bottom Buttons */}
           <div className="flex gap-4">
-            <div className="relative bottom-1 rounded-bl-3xl rounded-br-3xl rounded-tl-none rounded-tr-none bg-white text-white px-29 py-4"></div>
+            <div className="relative bottom-1 rounded-bl-3xl rounded-tl-none rounded-tr-none bg-white text-white px-6 py-5 w-[279px]">
+              <div className="text-gray-600 text-sm">
+                Remember your password?{" "}
+                <Link to="/login" className="text-[#37BFF5] hover:underline">
+                  Log in
+                </Link>
+              </div>
+            </div>
 
             <button
               type="submit"
               form="confirmpassword"
               disabled={isDisabled}
-              className={`cursor-pointer mt-2 rounded-3xl w-[171px] h-[45px] font-medium transition-all duration-300 ${
+              className={`cursor-pointer mt-2 rounded-br-3xl w-[171px] h-[45px] font-medium transition-all duration-300 ${
                 isDisabled
                   ? "bg-[#ADD8E6] text-white cursor-not-allowed opacity-60"
-                  : "bg-[#37BFF5] text-white hover:bg-[#144a7a] shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                  : "bg-[#37BFF5] text-white hover:bg-[#2ba9dc] shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               }`}
             >
-              Log in
+              Reset Password
             </button>
           </div>
         </div>
