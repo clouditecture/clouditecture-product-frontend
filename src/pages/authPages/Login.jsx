@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import GradientBackground from "@/components/ui/GradientBackground";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { FcGoogle } from "react-icons/fc"; // install react-icons if needed
-import { Link } from "react-router-dom"; // for routing
-// import CloudImg from "../Logo/PNG_Screen/logo.png.png";  
-import CloudLogo from "../components/CloudLogo";
-// frontend\src\Logo\PNG_Screen\logo.png.png
+import { Input } from "@/components/authComponents/input";
+import { Checkbox } from "@/components/authComponents/checkbox";
+import GradientBackground from "@/components/authComponents/GradientBackground";
+import { Label } from "@/components/authComponents/label";
+import { Button } from "@/components/authComponents/button";
+import { Card, CardContent } from "@/components/authComponents/card";
+import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
+import CloudLogo from "@/components/CloudLogo";
 import AuthService from "@/services/authService";
+
 const Login = ({
   onSubmit,
   onForgotPassword,
@@ -37,26 +36,18 @@ const Login = ({
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onSubmit?.(formData);
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
     try {
-await AuthService.login({ 
-  email: formData.email, 
-  password: formData.password, 
-  remember: formData.rememberMe 
-});      alert("Login OK — check console for current user");
+      await AuthService.login({ 
+        email: formData.email, 
+        password: formData.password, 
+        remember: formData.rememberMe 
+      });      
+      alert("Login OK — check console for current user");
       console.log("current user:", AuthService.getCurrentUser());
-      // navigate somewhere protected (not implemented here)
     } catch (err) {
       alert(err.message || "Login failed");
-    } finally {
-      // setLoading(false);
     }
   };
 
@@ -73,19 +64,19 @@ await AuthService.login({
             <CardContent className="p-6">
               {/* Cloud Icon */}
               <div className="flex justify-center mb-4">
-  <CloudLogo />
-</div>
+                <CloudLogo />
+              </div>
 
               {/* Header */}
               <div className="text-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-900 mb-1">Login</h1>
                 <p className="text-black text-sm font-medium">
-  Enter your Email and Password to Login
-</p>
+                  Enter your Email and Password to Login
+                </p>
               </div>
 
               {/* Login Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form id="loginForm" onSubmit={handleSubmit} className="space-y-4">
                 {/* Email Field */}
                 <div className="space-y-1">
                   <Label htmlFor="email" className="text-login-text font-medium">
@@ -139,8 +130,8 @@ await AuthService.login({
                       Remember me
                     </Label>
                   </div>
-                  <Link  to="/forgot"
-                    type="button"
+                  <Link 
+                    to="/forgot"
                     onClick={onForgotPassword}
                     className="text-sm text-[#37BFF5] font-medium cursor-pointer"
                   >
@@ -153,14 +144,14 @@ await AuthService.login({
 
           {/* Custom Buttons */}
           <div className="flex gap-4">
-            <div
-              className="relative bottom-1 rounded-bl-3xl rounded-br-3xl rounded-tl-none rounded-tr-none bg-white text-white px-29 py-4"
-            >
-             
+            <div className="relative bottom-1 rounded-bl-3xl rounded-br-3xl rounded-tl-none rounded-tr-none bg-white text-white px-29 py-4">
+              {/* Empty spacer div */}
             </div>
 
             <button
-              className="cursor-pointer mt-2 rounded-3xl bg-[#37BFF5] text-white w-[171px] h-[45px]"
+              type="submit"
+              form="loginForm"  
+              className="cursor-pointer mt-2 rounded-3xl bg-[#37BFF5] text-white w-[171px] h-[45px] hover:bg-[#2BA8E0] transition-colors"
             >
               Log in
             </button>
@@ -177,11 +168,10 @@ await AuthService.login({
             </div>
 
             <div className="space-y-3">
-              {/* Use Link for routing */}
               <Link
                 to="/signup"
                 onClick={onSignUp}
-                className="block w-full py-3 bg-[#37BFF5] text-white rounded-3xl cursor-pointer text-center"
+                className="block w-full py-3 bg-[#37BFF5] text-white rounded-3xl cursor-pointer text-center hover:bg-[#2BA8E0] transition-colors"
               >
                 Sign up
               </Link>
@@ -189,7 +179,7 @@ await AuthService.login({
               <Link
                 to="/google-login"
                 onClick={onGoogleLogin}
-                className="block w-full py-2.5 flex items-center justify-center gap-3 border border-white text-white rounded-3xl cursor-pointer text-center"
+                className="block w-full py-2.5 flex items-center justify-center gap-3 border border-white text-white rounded-3xl cursor-pointer text-center hover:bg-white/10 transition-colors"
               >
                 <FcGoogle className="w-6 h-6" />
                 Log in with Google

@@ -1,20 +1,18 @@
-import React from 'react'
-import CloudImg from "../Logo/PNG_Screen/logo.png.png";  // extension must match your file
+import React from "react";
 
-const CloudLogo = () => {
+const CloudLogo = ({ width = 80, height = "auto", className = "" }) => {
   return (
-    <div>
-       <div className="flex justify-center mb-4">
-        <div className="flex items-center justify-center">
-         <img
-        src={CloudImg}
-        alt="Cloud"
-        className="w-[80px] h-auto opacity-80 object-contain"
-      />
-        </div>
+    <div className="flex justify-center mb-4">
+      <div className="flex items-center justify-center">
+        <img
+          src="/logo.svg.png" // file in /public/logo.svg.png
+          alt="Cloud Logo"
+          style={{ width: `${width}px`, height: height }} // ✅ inline size
+          className={`opacity-80 object-contain ${className}`}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CloudLogo;
