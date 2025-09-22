@@ -6,6 +6,7 @@ import Forgot from "./pages/authPages/ForgotPassword";
 import SignUp from "./pages/authPages/Signup";
 import VerificationScreen from "./pages/authPages/SignupVerification";
 import ConfirmPass from "./pages/authPages/ResetPassword";
+import AuthRoute from "./Routes/AuthRoutes";
 
 
 
@@ -14,19 +15,7 @@ const App = () => {
    
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Default route */}
-        <Route path="/" element={<Login />} />
-
-        {/* Login route explicitly */}
-        <Route path="/login" element={<Login />} />
-
-        {/* Forgot password page */}
-        <Route path="/forgot" element={<Forgot />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/verify" element={<VerificationScreen />} />
-        <Route path="/reset" element={<ConfirmPass />} />
-      </Routes>
+      <AuthRoute />
     </BrowserRouter>
   );
 };
