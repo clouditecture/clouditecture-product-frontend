@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/components/authComponents/input";
 import { Checkbox } from "@/components/authComponents/checkbox";
 import GradientBackground from "@/components/authComponents/GradientBackground";
@@ -7,47 +7,39 @@ import { Card, CardContent } from "@/components/authComponents/card";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import CloudLogo from "@/components/CloudLogo";
-import AuthService from "@/services/authService";
+import useAuthStore from "@/stores/authStore"; // Zustand store
 
 const Login = ({
   onSubmit,
   onForgotPassword,
-  onSignUp,
   onGoogleLogin,
 }) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
-  });
+  // Zustand store
+  const {
+    loginForm,
+    updateLoginForm,
+    resetLoginForm
+  } = useAuthStore();
 
+  // Simplified handlers
   const handleInputChange = (field) => (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: e.target.value,
-    }));
+    updateLoginForm(field, e.target.value);
   };
 
   const handleRememberMeChange = (checked) => {
-    setFormData((prev) => ({
-      ...prev,
-      rememberMe: checked,
-    }));
+    updateLoginForm("rememberMe", checked);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await AuthService.login({ 
-        email: formData.email, 
-        password: formData.password, 
-        remember: formData.rememberMe 
-      });      
-      alert("Login OK — check console for current user");
-      console.log("current user:", AuthService.getCurrentUser());
-    } catch (err) {
-      alert(err.message || "Login failed");
+    if (onSubmit) {
+      await onSubmit({
+        email: loginForm.email,
+        password: loginForm.password,
+        remember: loginForm.rememberMe,
+      });
     }
+    resetLoginForm(); // optional — reset after submit
   };
 
   return (
@@ -85,7 +77,7 @@ const Login = ({
                     id="email"
                     type="email"
                     placeholder="john@email.com"
-                    value={formData.email}
+                    value={loginForm.email}
                     onChange={handleInputChange("email")}
                     className="border-gray-200 rounded-lg px-4 py-3 text-login-text placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
                     required
@@ -94,23 +86,18 @@ const Login = ({
 
                 {/* Password Field */}
                 <div className="space-y-1">
-                  <Label
-                    htmlFor="password"
-                    className="text-login-text font-medium"
-                  >
+                  <Label htmlFor="password" className="text-login-text font-medium">
                     Password
                   </Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="••••••••"
-                      value={formData.password}
-                      onChange={handleInputChange("password")}
-                      className="border-gray-200 rounded-lg px-4 py-3 pr-6 text-login-text placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={loginForm.password}
+                    onChange={handleInputChange("password")}
+                    className="border-gray-200 rounded-lg px-4 py-3 pr-6 text-login-text placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                    required
+                  />
                 </div>
 
                 {/* Remember Me & Forgot Password */}
@@ -118,7 +105,7 @@ const Login = ({
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="remember"
-                      checked={formData.rememberMe}
+                      checked={loginForm.rememberMe}
                       onCheckedChange={handleRememberMeChange}
                       className="border-gray-300"
                     />
@@ -129,7 +116,7 @@ const Login = ({
                       Remember me
                     </Label>
                   </div>
-                  <Link 
+                  <Link
                     to="/forgot"
                     onClick={onForgotPassword}
                     className="text-sm text-[#37BFF5] font-medium cursor-pointer"
@@ -142,7 +129,7 @@ const Login = ({
           </Card>
 
           {/* Custom Buttons */}
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <div className="relative bottom-1 rounded-bl-3xl rounded-tl-none rounded-tr-none bg-white text-white px-6 py-5 w-[279px]">
               <div className="text-gray-600 text-sm">
                 Don't have an account?{" "}
@@ -154,13 +141,14 @@ const Login = ({
 
             <button
               type="submit"
-              form="loginForm"  
+              form="loginForm"
               className="cursor-pointer mt-2 rounded-br-3xl bg-[#37BFF5] text-white w-[171px] h-[45px] hover:bg-[#2BA8E0] transition-colors"
             >
               Log in
             </button>
           </div>
 
+          {/* Google Login */}
           <div className="mt-6 text-center">
             <div className="flex items-center justify-center mb-4">
               <div className="flex-1 border-t border-white/30" />

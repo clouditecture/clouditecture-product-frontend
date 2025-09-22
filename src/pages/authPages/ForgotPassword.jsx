@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/authComponents/card";
 import { Link } from "react-router-dom";
 import CloudLogo from "@/components/CloudLogo";
 import { FaChevronLeft } from "react-icons/fa";
-import AuthService from "@/services/authService";
 import { useNavigate } from "react-router-dom";
 
 const Forgot = ({ onSubmit }) => {
@@ -23,16 +22,6 @@ const Forgot = ({ onSubmit }) => {
     }
 
     setIsSubmitting(true);
-    try {
-      const res = await AuthService.sendOTP(email);
-      alert(`OTP generated for testing. Check console (or will be returned) — OTP: ${res.otp}`);
-      console.log(`OTP for ${email}:`, res.otp);
-      navigate("/verify", { state: { email } });
-    } catch (err) {
-      alert(err.message || "Error sending OTP");
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -91,7 +80,7 @@ const Forgot = ({ onSubmit }) => {
             </CardContent>
           </Card>
 
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <div className="relative bottom-1 rounded-bl-3xl rounded-tl-none rounded-tr-none bg-white text-white px-6 py-5 w-[279px]">
                 <div className="flex justify-center">
                   <Link

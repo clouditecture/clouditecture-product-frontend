@@ -6,15 +6,12 @@ import Forgot from "./pages/authPages/ForgotPassword";
 import SignUp from "./pages/authPages/Signup";
 import VerificationScreen from "./pages/authPages/SignupVerification";
 import ConfirmPass from "./pages/authPages/ResetPassword";
-import AuthService from "./services/authService";
 
 
 
 const App = () => {
 
-   useEffect(() => {
-    AuthService.init(); // seed initial users
-  }, []);
+   
   return (
     <BrowserRouter>
       <Routes>
